@@ -1,32 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
-import { useState,useContext } from 'react';
+import { Link ,useNavigate} from 'react-router-dom';
+import { useState } from 'react';
 
-import SearchContext from '../../Hooks/ContextApi';
+
+import {useSearchContext} from '../../Hooks/ContextApi';
 
 
 const Header = () => {
   
-  const { searchTerm, handleSearchTermChange } = useContext(SearchContext);
+  const navigate = useNavigate();
+    const { updateSearchKey } = useSearchContext();
+  const [searchKey, setSearchKey] = useState('');
 
-  const handleSearch = (e) => {
+  const movieSearch = (e) => {
     e.preventDefault();
-    const newTerm = e.target.value;
-    handleSearchTermChange(newTerm); // Update search term in context
-    //navigate(`/search?query=${newTerm}`); // Navigate with query
+    updateSearchKey(searchKey);
+      
+    navigate("/search-movie");
+    setSearchKey('');
+    
   };
+  useEffect( ()=>{
+   //movieSearch();
+  },[searchKey])
 
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary" style={{height:'50%'}}>
+    <Navbar expand="lg" className="bg-body-tertiary p-4 shadow  mb-2 bg-body rounded" >
       <Container fluid style={{ width: '85%'}} p-10>
-        <Navbar.Brand href="#">MovieDB</Navbar.Brand>
+        <Navbar.Brand href="/" className='fs-1'>MovieDB</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" >
           <Nav
@@ -37,20 +45,23 @@ const Header = () => {
             
             
           </Nav>
-          <Nav.Link  className="mx-3 font-medium" > <Link to="/" className='no-underline text-lg font-semibold text-slate-800'>Popular</Link> </Nav.Link>
-          <Nav.Link  className="mx-3 font-medium" > <Link to="/top-rated-movie" className='no-underline text-lg font-semibold text-slate-800'>Top Rated</Link> </Nav.Link>
-          <Nav.Link  className="mx-3 font-medium" > <Link to="/upcoming-movie" className='no-underline text-lg font-semibold text-slate-800'>Upcoming</Link> </Nav.Link>
+          <Nav.Link  className="mx-3 font-medium" > <Link to="/" className='no-underline text-2xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Popular</Link> </Nav.Link>
+          <Nav.Link  className="mx-3 font-medium" > <Link to="/top-rated-movie" className='no-underline text-2xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Top Rated</Link> </Nav.Link>
+          <Nav.Link  className="mx-3 font-medium" > <Link to="/upcoming-movie" className='no-underline text-2xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Upcoming</Link> </Nav.Link>
           
-          <form className="d-flex" onSubmit={handleSearch}>
-            <input
-              className="form-control me-2"
+          <form className="d-flex" onSubmit={movieSearch}>
+            <input 
+              className="form-control me-2 fs-5"
+              
               type="search"
               placeholder="Search Movies"
               aria-label="Search"
-              value={searchTerm}
-              onChange={(e) => handleSearchTermChange(e.target.value)}
+              value={searchKey}
+              onChange={ (e)=>setSearchKey(e.target.value)}
+              
+              
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-success fs-4 " type="submit">
               Search
             </button>
           </form>

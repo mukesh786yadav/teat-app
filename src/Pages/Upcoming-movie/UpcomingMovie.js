@@ -7,7 +7,7 @@ import Pagination from "../../Components/Pagination/Pagination";
 
 const UpcomingMovie = () => {
 
-  const Api_key = "c45a857c193f6302f2b5061c3b85e743";
+  const Api_key = process.env.REACT_APP_API_KEY;
   const [movieData, setMovieData] = useState([]);
   const [pageno, setPageno] = useState(1);
   const [pagenationno, setPagenationno] = useState();
@@ -36,7 +36,7 @@ const UpcomingMovie = () => {
               </Col>
             ))
           ) : (
-            'Loading.....'
+            <div className="text-white text-2xl p-7 justify-items-center">Loading.......</div>
           )}
         </Row>
         {pagenationno && pagenationno > 1 && (

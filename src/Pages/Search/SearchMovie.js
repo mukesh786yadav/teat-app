@@ -1,63 +1,55 @@
-import axios from 'axios';
-import React, { useContext } from 'react'
-import { useState,useEffect } from 'react'
-import MovieCard from '../../Components/Card/MovieCard';
-import { Container,Row,Col } from 'react-bootstrap';
-import SearchContext from '../../Hooks/ContextApi';
-
+import axios from "axios";
+import React from "react";
+import { useState, useEffect } from "react";
+import MovieCard from "../../Components/Card/MovieCard";
+import { Container, Row, Col } from "react-bootstrap";
+import { useSearchContext } from '../../Hooks/ContextApi'
+import Pagination from "../../Components/Pagination/Pagination";
 
 const SearchMovie = () => {
+  const { searchKey } = useSearchContext();
+  const Api_key = process.env.REACT_APP_API_KEY;
+  const [movieData, setMovieData] = useState([]);
+  const [pageno, setPageno] = useState(1);
+  const [pagenationno, setPagenationno] = useState();
 
-  
-  const Api_key = "c45a857c193f6302f2b5061c3b85e743";
-  const { searchTerm } = useContext(SearchContext);
-  console.log(searchTerm)
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const searchQuery = new URLSearchParams(window.location.search).get('query'); // Get search query from URL
-  console.log(searchQuery)
+  const getMoviedata = async () => {
+    const { data } = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${Api_key}&language=en-US&query=${searchKey}&page=${pageno}`
+    );
+    setMovieData(data.results);
+    setPagenationno(data.total_pages); // Set total pages for pagination
+  };
   useEffect(() => {
-    const fetchMovies = async () => {
-      setIsLoading(true);
-      setError(null);
+    getMoviedata();
+  }, [pageno]);
 
-      try {
-        
-        const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${Api_key}&language=en-US&query=${searchTerm}&page=1`);
-        setMovies(response.data.results);
-      } catch (error) {
-        console.error('Error fetching search results:', error);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (searchQuery) {
-      fetchMovies();
-    }
-  }, [searchQuery]);
-  
-  
+  const handleClick = (number) => {
+    setPageno(number);
+  };
   return (
     <>
-    
     <Container fluid className="bg-slate-500">
         <Row className="justify-content-center">
-          {movies && movies.length > 0 ? (
-            movies.map((item) => (
+          {movieData && movieData.length > 0 ? (
+            movieData.map((item) => (
               <Col key={item.id} xs={12} sm={6} md={4} lg={3}>
                 <MovieCard data={item} />
               </Col>
             ))
           ) : (
-            'Loading.....'
+            <div className="text-white text-2xl p-7 justify-items-center">No Data Found.</div>
           )}
         </Row>
+        {pagenationno && pagenationno > 1 && (
+          <Pagination
+            maxnum={pagenationno}
+            activenum={pageno}
+            handleClick={handleClick} // Corrected prop name
+          />
+        )}
       </Container>
     </>
-  )
+  );
 }
 
 export default SearchMovie

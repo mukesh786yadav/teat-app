@@ -1,34 +1,21 @@
-// import React from 'react'
-// import { createContext } from 'react'
+// ContextApi.js
 
+import React, { createContext, useContext, useState } from 'react';
 
-// const myContex = createContext('');
+const SearchContext = createContext();
 
-// const ContextApi = ({children}) => {
-//   return <myContex.Provider value='mukesh'>{children}</myContex.Provider>
-  
-// }
-
-// export {myContex,ContextApi}
-import React, { createContext, useState } from 'react';
-
-const SearchContext = createContext({
-  searchTerm: '',
-  setSearchTerm: () => {},
-});
+export const useSearchContext = () => useContext(SearchContext);
 
 export const SearchProvider = ({ children }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchKey, setSearchKey] = useState('');
 
-  const handleSearchTermChange = (newTerm) => {
-    setSearchTerm(newTerm);
+  const updateSearchKey = (key) => {
+    setSearchKey(key);
   };
 
   return (
-    <SearchContext.Provider value={{ searchTerm, handleSearchTermChange }}>
+    <SearchContext.Provider value={{ searchKey, updateSearchKey }}>
       {children}
     </SearchContext.Provider>
   );
 };
-
-export default SearchContext;
