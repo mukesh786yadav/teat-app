@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { SearchProvider } from './Hooks/ContextApi.js';
+//import Route from './Router/index.js'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
+import Home from './Pages/Home/Home.js'
+import SearchMovie from './Pages/Search/SearchMovie.js'
+import SingleMovieDetails from './Pages/Single-movie/SingleMovieDetails.js'
+import TopRatedMovie from './Pages/Top-rated/TopRatedMovie.js'
+import UpcomingMovie from './Pages/Upcoming-movie/UpcomingMovie.js'
+import Header from './Components/Header/index.js'
+import { useState } from 'react'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+       
+      {/* <Route></Route> */}
+      <BrowserRouter>
+            <SearchProvider>
+            <Header ></Header>
+            <Routes>
+                <Route path='/' element={<Home></Home>}></Route>
+                <Route path='/search-movie' element={<SearchMovie />}></Route>
+                <Route path='/movie/:id' element={<SingleMovieDetails/>}></Route>
+                <Route path='/top-rated-movie' element={<TopRatedMovie/>}></Route>
+                <Route path='/upcoming-movie' element={<UpcomingMovie/>}></Route>
+            </Routes>
+            </SearchProvider>
+        </BrowserRouter>
+    
+    </>
   );
 }
 
