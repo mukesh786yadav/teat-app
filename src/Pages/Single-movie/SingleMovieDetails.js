@@ -100,7 +100,7 @@ const SingleMovieDetails = () => {
         <Row className="justify-content-center">
           {castDetail && castDetail.length > 0 ? (
             castDetail.map((item) => (
-              <Col key={item.id} xs={12} sm={6} md={6} lg={2}>
+              <Col key={item.id} xs={12} sm={6} md={4} lg={3}>
                 <CastCard data={item} />
               </Col>
             ))

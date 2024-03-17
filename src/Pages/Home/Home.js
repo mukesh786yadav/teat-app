@@ -28,7 +28,7 @@ const Home = () => {
 
   return (
     <>
-      <Container fluid className="bg-slate-500">
+      <Container fluid className="bg-slate-500 p-4">
         <Row className="justify-content-center">
           {movieData && movieData.length > 0 ? (
             movieData.map((item) => (

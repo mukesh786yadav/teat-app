@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary p-4 shadow  mb-2 bg-body rounded" >
       <Container fluid style={{ width: '85%'}} p-10>
-        <Navbar.Brand href="/" className='fs-1'>MovieDB</Navbar.Brand>
+        <Navbar.Brand href="/" className='fs-2'>MovieDB</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" >
           <Nav
@@ -45,13 +45,13 @@ const Header = () => {
             
             
           </Nav>
-          <Nav.Link  className="mx-3 font-medium" > <Link to="/" className='no-underline text-2xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Popular</Link> </Nav.Link>
-          <Nav.Link  className="mx-3 font-medium" > <Link to="/top-rated-movie" className='no-underline text-2xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Top Rated</Link> </Nav.Link>
-          <Nav.Link  className="mx-3 font-medium" > <Link to="/upcoming-movie" className='no-underline text-2xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Upcoming</Link> </Nav.Link>
+          <Nav.Link  className="mx-3 font-medium" > <Link to="/" className='no-underline text-xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Popular</Link> </Nav.Link>
+          <Nav.Link  className="mx-3 font-medium" > <Link to="/top-rated-movie" className='no-underline text-xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Top Rated</Link> </Nav.Link>
+          <Nav.Link  className="mx-3 font-medium" > <Link to="/upcoming-movie" className='no-underline text-xl font-semibold text-slate-600 hover:underline hover:text-neutral-950'>Upcoming</Link> </Nav.Link>
           
           <form className="d-flex" onSubmit={movieSearch}>
             <input 
-              className="form-control me-2 fs-5"
+              className="form-control me-2 fs-6"
               
               type="search"
               placeholder="Search Movies"
@@ -61,7 +61,7 @@ const Header = () => {
               
               
             />
-            <button className="btn btn-outline-success fs-4 " type="submit">
+            <button className="btn btn-outline-success fs-5 " type="submit">
               Search
             </button>
           </form>
