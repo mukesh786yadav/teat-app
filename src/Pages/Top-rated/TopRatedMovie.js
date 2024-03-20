@@ -7,7 +7,7 @@ import Pagination from "../../Components/Pagination/Pagination";
 
 const TopRatedMovie = () => {
 
-  const Api_key = process.env.REACT_APP_API_KEY;
+  const Api_key = "c45a857c193f6302f2b5061c3b85e743";
   const [movieData, setMovieData] = useState([]);
   const [pageno, setPageno] = useState(1);
   const [pagenationno, setPagenationno] = useState();
