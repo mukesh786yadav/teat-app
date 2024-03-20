@@ -6,14 +6,15 @@ import { Container, Row, Col } from "react-bootstrap";
 import Pagination from "../../Components/Pagination/Pagination";
 
 const Home = () => {
-  const Api_key = process.env.REACT_APP_API_KEY;
+  const Api_key = "c45a857c193f6302f2b5061c3b85e743";
+  //const Api_key = process.env.REACT_APP_API_KEY;
   const [movieData, setMovieData] = useState([]);
   const [pageno, setPageno] = useState(1);
   const [pagenationno, setPagenationno] = useState();
 
   const getMoviedata = async () => {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${Api_key}&language=en-US&page=${pageno}`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${Api_key}&language=en-US&page=${pageno}`,
     );
     setMovieData(data.results);
     setPagenationno(data.total_pages); // Set total pages for pagination
@@ -37,7 +38,10 @@ const Home = () => {
               </Col>
             ))
           ) : (
-              <div className="text-white text-2xl p-7 justify-items-center">Loading.......</div>          )}
+            <div className="text-white text-2xl p-7 justify-items-center">
+              Loading.......
+            </div>
+          )}
         </Row>
         {pagenationno && pagenationno > 1 && (
           <Pagination

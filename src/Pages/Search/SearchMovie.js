@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import MovieCard from "../../Components/Card/MovieCard";
 import { Container, Row, Col } from "react-bootstrap";
-import { useSearchContext } from '../../Hooks/ContextApi'
+import { useSearchContext } from "../../Hooks/ContextApi";
 import Pagination from "../../Components/Pagination/Pagination";
 
 const SearchMovie = () => {
@@ -14,7 +14,8 @@ const SearchMovie = () => {
   const [pagenationno, setPagenationno] = useState();
 
   const getMoviedata = async () => {
-    const { data } = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${Api_key}&language=en-US&query=${searchKey}&page=${pageno}`
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/search/movie?api_key=${Api_key}&language=en-US&query=${searchKey}&page=${pageno}`,
     );
     setMovieData(data.results);
     setPagenationno(data.total_pages); // Set total pages for pagination
@@ -28,7 +29,7 @@ const SearchMovie = () => {
   };
   return (
     <>
-    <Container fluid className="bg-slate-500">
+      <Container fluid className="bg-slate-500">
         <Row className="justify-content-center">
           {movieData && movieData.length > 0 ? (
             movieData.map((item) => (
@@ -37,7 +38,9 @@ const SearchMovie = () => {
               </Col>
             ))
           ) : (
-            <div className="text-white text-2xl p-7 justify-items-center">No Data Found.</div>
+            <div className="text-white text-2xl p-7 justify-items-center">
+              No Data Found.
+            </div>
           )}
         </Row>
         {pagenationno && pagenationno > 1 && (
@@ -50,6 +53,6 @@ const SearchMovie = () => {
       </Container>
     </>
   );
-}
+};
 
-export default SearchMovie
+export default SearchMovie;
